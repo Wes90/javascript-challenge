@@ -12,18 +12,26 @@ tableData.forEach(function(UFOreport) {
 });
 
 
-var inputfield = d3.select('.form-control').text();
+var inputfield = d3.select('#datetime');
 var button = d3.select('#filter-btn');
 
-
-
-function filterreport(){
-    for (const [key, value] of Object.entries(UFOreport)) {
-        console.log(`${key}: ${value}`);
-      }
+function filterreport() {
+    var inputvalue = inputfield.property('value');
     
     console.log("A button was clicked!");
     console.log(d3.event.target);
-    console.log(inputfield);
-}  
+    console.log(inputvalue);
+
+    var x = tableData.filter(report => report.datetime == inputvalue);
+    console.log(x);
+    tbody.html("");
+    
+    x.forEach(function(UFOreport) {
+        var row = tbody.append('tr');
+        Object.entries(UFOreport).forEach(function([key, value]) {
+            row.append('td').text(value);
+        });
+    });
+};
+
 button.on('click', filterreport);
