@@ -23,9 +23,9 @@ function filterreport() {
     console.log(inputvalue);
 
     var x = tableData.filter(report => report.datetime == inputvalue);
-    console.log(x);
-    tbody.html("");
     
+    tbody.html("");
+
     x.forEach(function(UFOreport) {
         var row = tbody.append('tr');
         Object.entries(UFOreport).forEach(function([key, value]) {
