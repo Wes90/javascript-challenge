@@ -21,6 +21,8 @@ var ufoshape = d3.select('#shape');
 var button = d3.select('#filter-btn');
 
 function filterreport() {
+    var filterlist = []
+
     var datevalue = dateinput.property('value');
     var cityvalue = cityname.property('value');
     var statevalue = statename.property('value');
@@ -29,26 +31,28 @@ function filterreport() {
 
     console.log("A button was clicked!");
     console.log(d3.event.target);
-    console.log(datevalue);
-    console.log(cityvalue);
-    console.log(statevalue);
-    console.log(countryvalue);
-    console.log(ufovalue);
-
-
-    filterlist = []
     
-    var datefilter = tableData.filter(report => report.datetime == datevalue).push(filterlist);
-    var cityfilter = tableData.filter(report => report.city == cityvalue).push(filterlist);
-    var statefilter = tableData.filter(report => report.state == statevalue).push(filterlist);
-    var countryfilter = tableData.filter(report => report.country == countryvalue).push(filterlist);
-    var ufofilter = tableData.filter(report => report.shape == ufovalue).push(filterlist);
+    
 
-    console.log(filterlist);
+    var x = tableData.filter(report => report.datetime == datevalue);
+    if(cityvalue != "") {
+        x = x.filter(report => report.city == cityvalue);
+    }
+    if(statevalue != "") {
+    x = x.filter(report => report.state == statevalue);
+    }
+    if(countryvalue != "") {
+    x = x.filter(report => report.country == countryvalue);
+    }
+    if(ufovalue != "") {
+    x = x.filter(report => report.shape == ufovalue);
+    }
+    console.log(x);
+
     tbody.html("");
 
     
-    filterlist.forEach(function(UFOreport) {
+    x.forEach(function(UFOreport) {
         var row = tbody.append('tr');
         Object.entries(UFOreport).forEach(function([key, value]) {
             row.append('td').text(value);
