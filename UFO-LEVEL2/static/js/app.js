@@ -21,18 +21,12 @@ var ufoshape = d3.select('#shape');
 var button = d3.select('#filter-btn');
 
 function filterreport() {
-    var filterlist = []
 
     var datevalue = dateinput.property('value');
     var cityvalue = cityname.property('value');
     var statevalue = statename.property('value');
     var countryvalue = countryname.property('value');
     var ufovalue = ufoshape.property('value');
-
-    console.log("A button was clicked!");
-    console.log(d3.event.target);
-    
-    
 
     var x = tableData.filter(report => report.datetime == datevalue);
     if(cityvalue != "") {
@@ -47,11 +41,13 @@ function filterreport() {
     if(ufovalue != "") {
     x = x.filter(report => report.shape == ufovalue);
     }
+    
+    console.log("A button was clicked!");
+    console.log(d3.event.target);
     console.log(x);
 
     tbody.html("");
 
-    
     x.forEach(function(UFOreport) {
         var row = tbody.append('tr');
         Object.entries(UFOreport).forEach(function([key, value]) {
